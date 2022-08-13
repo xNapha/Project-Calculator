@@ -1,6 +1,7 @@
 const results = document.querySelector("#results");
 const current = document.querySelector("#current");
 let prevOp = "";
+let counter = 0;
 let prevEqual = "";
 current.textContent = "0";
 results.textContent = "";
@@ -26,6 +27,11 @@ function curNum(num){
         current.textContent = num;
         return;
     }
+    if (counter > 0){
+        current.textContent = num;
+        counter = 0;
+        return;
+    }
     current.textContent += num;
     return;
 };
@@ -45,31 +51,32 @@ function backspace(){
         current.textContent = 0;
     };
 }
-function checkResZero(){
-    if(results.textContent == "0" || results.textContent == ""){
-        results.textContent = Number(current.textContent);
-        current.textContent = "0";
-        return;
-    };
-};
 
 function addition(){
-    checkResZero()
+    if (counter != 0){
+        return;
+    }
     results.textContent = Number(results.textContent) + Number(current.textContent);
 }
 function subtraction(){
-    checkResZero()
+    if (counter != 0){
+        return;
+    }
     results.textContent = Number(results.textContent) - Number(current.textContent);
 }
 function division(){
-    checkResZero()
+    if (counter != 0){
+        return;
+    }
     if(current.textContent == "0"){
         return;
     }
     results.textContent = Number(results.textContent) / Number(current.textContent);
 }
 function multiplication(){
-    checkResZero()
+    if (counter != 0){
+        return;
+    }
     if(current.textContent == "0" && results.textContent == "0"){
         return;
     }
@@ -147,23 +154,26 @@ window.addEventListener("keydown", (e) =>{
             clear();
             break;
         case "+":
-            prevOp = "+"
             addition();
-            current.textContent = "0";
+            counter++
+            prevOp = "+"
             break;
         case "-":
-            prevOp = "-"
             subtraction();
+            counter++
+            prevOp = "-"
             current.textContent = "0";
             break;
         case "/":
-            prevOp = "÷"
             division();
+            counter++
+            prevOp = "÷"
             current.textContent = "0";
             break;
         case "*":
-            prevOp = "x"
             multiplication();
+            counter++
+            prevOp = "x"
             current.textContent = "0";
             break;
         case "=":
@@ -214,23 +224,26 @@ document.addEventListener("click", (e)=>{
             clear();
             break;
         case "+":
-            prevOp = "+"
             addition();
-            current.textContent = "0";
+            counter++
+            prevOp = "+"
             break;
         case "-":
-            prevOp = "-"
             subtraction();
+            counter++
+            prevOp = "-"
             current.textContent = "0";
             break;
         case "÷":
-            prevOp = "÷"
             division();
+            counter++
+            prevOp = "÷"
             current.textContent = "0";
             break;
         case "x":
-            prevOp = "x"
             multiplication();
+            counter++
+            prevOp = "x"
             current.textContent = "0";
             break;
         case "=":

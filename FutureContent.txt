@@ -1,2 +1,3 @@
-1. keyboard functionality
+1. keyboard functionality: Done
 2. a User interface
+3. Clean up code, it feels too messy
