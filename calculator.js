@@ -1,9 +1,10 @@
 const results = document.querySelector("#results");
 const current = document.querySelector("#current");
 let prevOp = "";
-let counter = 0;
+let opCounter = 0;
+let eqCounter = 0;
 let prevEqual = "";
-current.textContent = "0";
+current.textContent = "";
 results.textContent = "";
 function curNum(num){
     if(current.textContent.search(/-/)==0){
@@ -20,18 +21,18 @@ function curNum(num){
     } else if (current.textContent == "0" && num != 0){
         current.textContent = num;
         return;
-    }
+    };
     if (prevEqual == "="){
         clear();
         clear();
         current.textContent = num;
         return;
-    }
-    if (counter > 0){
+    };
+    if (opCounter > 0){
         current.textContent = num;
-        counter = 0;
+        opCounter = 0;
         return;
-    }
+    };
     current.textContent += num;
     return;
 };
@@ -41,8 +42,9 @@ function clear(){
     current.textContent = "0";
     if (current.textContent == "0"){
         prevEqual = "";
+        eqCounter = 0;
         results.textContent ="0";
-    }
+    };
 };
 
 function backspace(){
@@ -50,48 +52,64 @@ function backspace(){
     if (current.textContent.length == 0){
         current.textContent = 0;
     };
-}
+};
 
 function addition(){
-    if (counter != 0){
+    if (opCounter != 0){
         return;
-    }
+    };
+    if(eqCounter == 0 ){
+        results.textContent = current.textContent;
+        return;
+    };
     results.textContent = Number(results.textContent) + Number(current.textContent);
-}
+};
 function subtraction(){
-    if (counter != 0){
+    if (opCounter != 0){
         return;
-    }
+    };
+    if(eqCounter == 0 ){
+        results.textContent = current.textContent;
+        return;
+    };
     results.textContent = Number(results.textContent) - Number(current.textContent);
-}
+};
 function division(){
-    if (counter != 0){
+    if (opCounter != 0){
         return;
-    }
+    };
+    if(eqCounter == 0 ){
+        results.textContent = current.textContent;
+        return;
+    };
     if(current.textContent == "0"){
         return;
-    }
+    };
     results.textContent = Number(results.textContent) / Number(current.textContent);
-}
+};
 function multiplication(){
-    if (counter != 0){
+    if (opCounter != 0){
         return;
-    }
+    };
+    if(eqCounter == 0 ){
+        results.textContent = current.textContent;
+        return;
+    };
     if(current.textContent == "0" && results.textContent == "0"){
         return;
-    }
+    };
     results.textContent = Number(results.textContent) * Number(current.textContent);
-}
+};
 function negInt(){
     current.textContent = Number(current.textContent) * -1;
-}
+};
 
 function period(){
     if(current.textContent.search(/\./) == -1){
         current.textContent += ".";
         return;
-    }
-}
+    };
+};
 function equals(o){
     switch (o){
         case "+":
@@ -115,7 +133,7 @@ function equals(o){
             break;
     };
 };
-window.addEventListener("keydown", (e) =>{
+document.addEventListener("keydown", (e) =>{
     switch (e.key){
         case "1":
             curNum(1);
@@ -155,26 +173,27 @@ window.addEventListener("keydown", (e) =>{
             break;
         case "+":
             addition();
-            counter++
+            opCounter++
+            eqCounter++
             prevOp = "+"
             break;
         case "-":
             subtraction();
-            counter++
+            opCounter++
+            eqCounter++
             prevOp = "-"
-            current.textContent = "0";
             break;
         case "/":
             division();
-            counter++
+            opCounter++
+            eqCounter++
             prevOp = "÷"
-            current.textContent = "0";
             break;
         case "*":
             multiplication();
-            counter++
+            opCounter++
+            eqCounter++
             prevOp = "x"
-            current.textContent = "0";
             break;
         case "=":
             equals(prevOp);
@@ -225,26 +244,27 @@ document.addEventListener("click", (e)=>{
             break;
         case "+":
             addition();
-            counter++
+            opCounter++
+            eqCounter++
             prevOp = "+"
             break;
         case "-":
             subtraction();
-            counter++
+            opCounter++
+            eqCounter++
             prevOp = "-"
-            current.textContent = "0";
             break;
         case "÷":
             division();
-            counter++
+            opCounter++
+            eqCounter++
             prevOp = "÷"
-            current.textContent = "0";
             break;
         case "x":
             multiplication();
-            counter++
+            opCounter++
+            eqCounter++
             prevOp = "x"
-            current.textContent = "0";
             break;
         case "=":
             equals(prevOp);

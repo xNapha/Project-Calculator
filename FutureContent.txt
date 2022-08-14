@@ -1,3 +1,6 @@
 1. keyboard functionality: Done
-2. a User interface
+2. a User interface: partially Done
+    a) keydown button hover
 3. Clean up code, it feels too messy
+4. Add more scientific buttons
+5. change results display to be an equation display, which provides the previous equation and number used against the previous Answer(Ans)
